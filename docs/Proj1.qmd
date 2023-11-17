@@ -1,0 +1,9 @@
+---
+title: "Proj 1"
+---
+
+Here is my project
+
+```{r}
+barplot(1:5)
+```
