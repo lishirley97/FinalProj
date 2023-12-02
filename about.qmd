@@ -2,7 +2,9 @@
 title: "About"
 ---
 
-About this site
+This is Shirley's PM566 Final Project Website.
+
+Research Question: Is there a trend in individuals in the United States that need counseling or therapy for mental health disorders but did not receive relevant care? Is there a difference between different demographics (age, education status) and/or between different years (2022, 2021, 2020) and months within the year?
 
 ```{r}
 1 + 1

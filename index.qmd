@@ -1,8 +1,12 @@
 ---
-title: "Temp"
+title: "Home"
 ---
 
-This is a Quarto website.
+Welcome to Shirley's PM566 Final Project Website.
+
+This project is a summary of analysis and figures related to a public health topic of Shirley's interest: mental health care and access.
+
+Please go to this link to view the full report: \_\_\_
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 
