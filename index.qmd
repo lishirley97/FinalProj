@@ -6,11 +6,11 @@ Welcome to Shirley's PM566 Final Project Website.
 
 This project is a summary of analysis and figures related to a public health topic of Shirley's interest: mental health care and access.
 
-Please go to this link to view the full report: [Download PDF](download_link.html)
+Please go to to the "Full Report" tab, or this link, to view the full report: [Download PDF](download_link.html)
 
 ```{r, echo=FALSE}
 # Define the file path
-file_path <- "/Users/shirleyli/Desktop/Med_School/USC/MPH/Fall_2023/PM566_DataScience/Final/Final Project.pdf"
+file_path <- "/Users/shirleyli/Desktop/Med_School/USC/MPH/Fall_2023/PM566_DataScience/Final/FinalProj/docs/Final Project.pdf"
 
 # HTML content to create a download link
 html_content <- sprintf('<a href="%s" download>Download PDF</a>', file_path)
