@@ -391,11 +391,11 @@ figure1 <- ggplot(age_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill
     ) +
   theme_minimal() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.title = element_text(size = 12))
-
+        plot.title = element_text(size = 10))
+                                  
 figure1
 
-ggsave("figure1.png", figure1, width = 6, height = 4, dpi = 300)
+ggsave("figure1.png", figure1)
 ```
 
 ```{r, echo=FALSE}
@@ -426,12 +426,12 @@ figure2 <- ggplot(age_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color
     y = "Percent"
   ) +
   theme_minimal() + 
-  theme(plot.title = element_text(size = 12)) + 
+  theme(plot.title = element_text(size = 10)) + 
   scale_x_continuous(breaks = unique(age_subgrp_nocare_mean_yr$year), labels = unique(age_subgrp_nocare_mean_yr$year))
 
 figure2 
 
-ggsave("figure2.png", figure2, width = 6, height = 4, dpi = 300)
+ggsave("figure2.png", figure2)
 ```
 
 ### Education
@@ -455,11 +455,11 @@ figure3 <- ggplot(edu_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill
     ) +
   theme_minimal() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.title = element_text(size = 12))
+        plot.title = element_text(size = 10))
 
 figure3 
 
-ggsave("figure3.png", figure3, width = 6, height = 4, dpi = 300)
+ggsave("figure3.png", figure3)
 ```
 
 ```{r, echo=FALSE}
@@ -499,12 +499,12 @@ figure4 <- ggplot(edu_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color
     y = "Percent"
   ) +
   theme_minimal() + 
-  theme(plot.title = element_text(size = 12)) + 
+  theme(plot.title = element_text(size = 10)) + 
   scale_x_continuous(breaks = unique(edu_subgrp_nocare_mean_yr$year), labels = unique(edu_subgrp_nocare_mean_yr$year))
 
 figure4 
 
-ggsave("figure4.png", figure4, width = 6, height = 4, dpi = 300)
+ggsave("figure4.png", figure4)
 ```
 
 ### Year and Month
@@ -533,12 +533,12 @@ figure5 <- ggplot(yr_nocare_mean, aes(x = year, y = mean_value)) +
     y = "Average Percent"
   ) +
   theme_minimal() + 
-  theme(plot.title = element_text(size = 12)) + 
+  theme(plot.title = element_text(size = 10)) + 
   scale_x_continuous(breaks = unique(yr_nocare_mean$year), labels = unique(yr_nocare_mean$year))
 
 figure5
 
-ggsave("figure5.png", figure5, width = 6, height = 4, dpi = 300)
+ggsave("figure5.png", figure5)
 ```
 
 ```{r, echo=FALSE}
@@ -566,11 +566,11 @@ figure6 <- ggplot(mo_nocare_mean, aes(x = month, y = mean_value, group = 1)) +
   #   breaks = month_names$month,
   #   labels = month_names$month_name)
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.title = element_text(size = 12))
+        plot.title = element_text(size = 10))
 
 figure6 
 
-ggsave("figure6.png", figure6, width = 6, height = 4, dpi = 300)
+ggsave("figure6.png", figure6)
 ```
 
 ```{r, echo=FALSE}

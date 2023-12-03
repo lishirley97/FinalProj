@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "Welcome to Shirley’s PM566 Final Project Website.\nThis project is a summary of analysis and figures related to a public health topic of Shirley’s interest: mental health care and access.\nPlease go to this link to view the full report: Link to PDF File"
+    "text": "Welcome to Shirley’s PM566 Final Project Website.\nThis project is a summary of analysis and figures related to a public health topic of Shirley’s interest: mental health care and access.\nPlease go to this link to view the full report: Download PDF"
   },
   {
     "objectID": "about.html",
@@ -25,7 +25,7 @@
     "href": "figures.html",
     "title": "Tables and Figures",
     "section": "",
-    "text": "!Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age"
+    "text": "&lt;&lt;include-image, echo=FALSE, cache=FALSE&gt;&gt;=\n@\n!Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age"
   },
   {
     "objectID": "Final.html",
@@ -81,7 +81,7 @@
     "href": "index.html#visualizations",
     "title": "Home",
     "section": "Visualizations",
-    "text": "Visualizations\n!Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age\nFigure 1. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by age subgroup. A higher average percent indicates a greater lack of access (i.e., less care); a lower average percent indicates a lower lack of access (i.e., more care).\nThe ages 18-29 years old had the highest rates of lack of mental health care at 19.85%, and those 70-79 years old with the lowest rates at 3.26%.\n!Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education\nFigure 3. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by education subgroup.\nThere is no distinct trend observed in education subgroups with regards to lack of mental health care, with fluctuations across education level. Those with High school diploma or GED were at the lowest average percent at 8.75% and Some college/Associate’s at the highest at 13.47%.\nFigure 5. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by year.\nIn 2020, an average of 10.54% lacked mental health care, with an increase to 11.27% in 2021, and at 12.20% in 2022.\nFigure 6. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by month.\nThe overall month average percent trend appears to be positive from January to December, though noticeably large fluctuations from month to month are observed. May was observed to be the month with the lowest percent lack of mental health care at 9.86%, with December the highest at 12.27%."
+    "text": "Visualizations\n\nFigure 1. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by age subgroup. A higher average percent indicates a greater lack of access (i.e., less care); a lower average percent indicates a lower lack of access (i.e., more care).\nThe ages 18-29 years old had the highest rates of lack of mental health care at 19.85%, and those 70-79 years old with the lowest rates at 3.26%.\n\nFigure 3. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by education subgroup.\nThere is no distinct trend observed in education subgroups with regards to lack of mental health care, with fluctuations across education level. Those with High school diploma or GED were at the lowest average percent at 8.75% and Some college/Associate’s at the highest at 13.47%.\n\nFigure 5. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by year.\nIn 2020, an average of 10.54% lacked mental health care, with an increase to 11.27% in 2021, and at 12.20% in 2022.\n\nFigure 6. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by month.\nThe overall month average percent trend appears to be positive from January to December, though noticeably large fluctuations from month to month are observed. May was observed to be the month with the lowest percent lack of mental health care at 9.86%, with December the highest at 12.27%."
   },
   {
     "objectID": "index.html#conclusions",
