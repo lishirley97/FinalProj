@@ -2,14 +2,14 @@
 title: "Tables and Figures"
 ---
 
-<img src="figure1.png" alt="Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age" width="600" height="400">
+<img src="figure1.png" alt="Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age" width="600" height="400"/>
 
-<img src="figure2.png" alt="Figure 2. Percent of Individuals Lacking Mental Health Counseling or Therapy by Age from 2020 to 2022" width="600" height="400">
+<img src="figure2.png" alt="Figure 2. Percent of Individuals Lacking Mental Health Counseling or Therapy by Age from 2020 to 2022" width="600" height="400"/>
 
-<img src="figure3.png" alt="Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level" width="600" height="400">
+<img src="figure3.png" alt="Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level" width="600" height="400"/>
 
-<img src="figure4.png" alt="Figure 4. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level from 2020 to 2022" width="600" height="400">
+<img src="figure4.png" alt="Figure 4. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level from 2020 to 2022" width="600" height="400"/>
 
-<img src="figure5.png" alt="Figure 5. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Year from 2020 to 2022" width="600" height="400">
+<img src="figure5.png" alt="Figure 5. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Year from 2020 to 2022" width="600" height="400"/>
 
-<img src="figure6.png" alt="Figure 6. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Month from 2020 to 2022" width="600" height="400">
+<img src="figure6.png" alt="Figure 6. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Month from 2020 to 2022" width="600" height="400"/>

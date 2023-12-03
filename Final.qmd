@@ -1,5 +1,5 @@
 ---
-title: "Final Project"
+title: "Full Report"
 format: html
 editor: visual
 author: Shirley Li
@@ -193,7 +193,7 @@ identify_missing_values <- function(subgroup_data, subgroup_name) {
   
   if (length(missing_value_rows) > 0) {
     print(paste("Missing values found in subgroup:", subgroup_name))
-    print(subgroup_data[missing_value_rows, ])
+    print(head(subgroup_data[missing_value_rows, ], 5))
   }
 }
 
@@ -281,7 +281,7 @@ identify_missing_values <- function(subgroup_data, subgroup_name) {
   
   if (length(missing_value_rows) > 0) {
     print(paste("Missing values found in subgroup:", subgroup_name))
-    print(subgroup_data[missing_value_rows, ])
+    print(head(subgroup_data[missing_value_rows, ], 5))
   }
 }
 

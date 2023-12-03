@@ -39,7 +39,7 @@ The dataset can also accessed through instructions described in the README.file,
 
 ## Visualizations
 
-<img src="figure1.png" alt="Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age" width="600" height="400">
+<img src="figure1.png" alt="Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age" width="600" height="400"/>
 
 ```{r, echo=FALSE}
 # library(knitr)
@@ -63,7 +63,7 @@ Figure 1. describes the average percent of individuals lacking mental health cou
 
 The ages 18-29 years old had the highest rates of lack of mental health care at 19.85%, and those 70-79 years old with the lowest rates at 3.26%.
 
-<img src="figure3.png" alt="Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level" width="600" height="400">
+<img src="figure3.png" alt="Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level" width="600" height="400"/>
 
 ```{r, echo=FALSE}
 # #reorder Subgroups on graph
@@ -87,7 +87,7 @@ Figure 3. describes the average percent of individuals lacking mental health cou
 
 There is no distinct trend observed in education subgroups with regards to lack of mental health care, with fluctuations across education level. Those with High school diploma or GED were at the lowest average percent at 8.75% and Some college/Associate's at the highest at 13.47%.
 
-<img src="figure5.png" alt="Figure 5. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Year from 2020 to 2022" width="600" height="400">
+<img src="figure5.png" alt="Figure 5. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Year from 2020 to 2022" width="600" height="400"/>
 
 ```{r, echo=FALSE}
 # ggplot(yr_nocare_mean, aes(x = year, y = mean_value)) +
@@ -107,7 +107,7 @@ Figure 5. describes the average percent of individuals lacking mental health cou
 
 In 2020, an average of 10.54% lacked mental health care, with an increase to 11.27% in 2021, and at 12.20% in 2022.
 
-<img src="figure6.png" alt="Figure 6. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Month from 2020 to 2022" width="600" height="400">
+<img src="figure6.png" alt="Figure 6. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Month from 2020 to 2022" width="600" height="400"/>
 
 ```{r, echo=FALSE}
 # # month_names <- data.frame(month = 1:12, month_name = month.name)
