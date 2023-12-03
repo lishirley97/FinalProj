@@ -382,7 +382,7 @@ In term of temporal trends, it can be seen that lack of mental health care has g
 ```{r, echo=FALSE}
 library(ggplot2)
 
-ggplot(age_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
+figure1 <- ggplot(age_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
   geom_bar(stat = "identity") +
   labs(
     title = "Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age", 
@@ -392,6 +392,10 @@ ggplot(age_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup
   theme_minimal() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         plot.title = element_text(size = 12))
+
+figure1
+
+ggsave("figure1.png", figure1, width = 6, height = 4, dpi = 300)
 ```
 
 ```{r, echo=FALSE}
@@ -414,7 +418,7 @@ age_subgrp_nocare_mean_yr <- age_subgrp_nocare %>%
   group_by(year, Subgroup) %>%
   summarize(mean_value = mean(Value, na.rm = TRUE), .groups = "drop")
 
-ggplot(age_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color = Subgroup)) +
+figure2 <- ggplot(age_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color = Subgroup)) +
   geom_line() +
   labs(
     title = "Figure 2. Percent of Individuals Lacking Mental Health Counseling or Therapy by Age from 2020 to 2022",
@@ -424,6 +428,10 @@ ggplot(age_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color = Subgroup
   theme_minimal() + 
   theme(plot.title = element_text(size = 12)) + 
   scale_x_continuous(breaks = unique(age_subgrp_nocare_mean_yr$year), labels = unique(age_subgrp_nocare_mean_yr$year))
+
+figure2 
+
+ggsave("figure2.png", figure2, width = 6, height = 4, dpi = 300)
 ```
 
 ### Education
@@ -438,7 +446,7 @@ custom_order <- c("Less than a high school diploma", "High school diploma or GED
 
 edu_subgrp_nocare_mean$Subgroup <- factor(edu_subgrp_nocare_mean$Subgroup, levels = custom_order)
 
-ggplot(edu_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
+figure3 <- ggplot(edu_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
   geom_bar(stat = "identity") +
   labs(
     title = "Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level", 
@@ -448,6 +456,10 @@ ggplot(edu_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup
   theme_minimal() + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         plot.title = element_text(size = 12))
+
+figure3 
+
+ggsave("figure3.png", figure3, width = 6, height = 4, dpi = 300)
 ```
 
 ```{r, echo=FALSE}
@@ -479,7 +491,7 @@ custom_order <- c("Less than a high school diploma", "High school diploma or GED
 
 edu_subgrp_nocare_mean_yr$Subgroup <- factor(edu_subgrp_nocare_mean_yr$Subgroup, levels = custom_order)
 
-ggplot(edu_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color = Subgroup)) +
+figure4 <- ggplot(edu_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color = Subgroup)) +
   geom_line() +
   labs(
     title = "Figure 4. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level from 2020 to 2022",
@@ -489,6 +501,10 @@ ggplot(edu_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color = Subgroup
   theme_minimal() + 
   theme(plot.title = element_text(size = 12)) + 
   scale_x_continuous(breaks = unique(edu_subgrp_nocare_mean_yr$year), labels = unique(edu_subgrp_nocare_mean_yr$year))
+
+figure4 
+
+ggsave("figure4.png", figure4, width = 6, height = 4, dpi = 300)
 ```
 
 ### Year and Month
@@ -508,7 +524,7 @@ yr_nocare_mean <- yr_nocare %>%
 ```
 
 ```{r, echo=FALSE}
-ggplot(yr_nocare_mean, aes(x = year, y = mean_value)) +
+figure5 <- ggplot(yr_nocare_mean, aes(x = year, y = mean_value)) +
   geom_line() +
   geom_point() +
   labs(
@@ -519,6 +535,10 @@ ggplot(yr_nocare_mean, aes(x = year, y = mean_value)) +
   theme_minimal() + 
   theme(plot.title = element_text(size = 12)) + 
   scale_x_continuous(breaks = unique(yr_nocare_mean$year), labels = unique(yr_nocare_mean$year))
+
+figure5
+
+ggsave("figure5.png", figure5, width = 6, height = 4, dpi = 300)
 ```
 
 ```{r, echo=FALSE}
@@ -532,7 +552,7 @@ kable(yr_nocare_mean,
 # month_names <- data.frame(month = 1:12, month_name = month.name)
 mo_nocare_mean$month <- factor(mo_nocare_mean$month, levels = 1:12, labels = month.name)
 
-ggplot(mo_nocare_mean, aes(x = month, y = mean_value, group = 1)) +
+figure6 <- ggplot(mo_nocare_mean, aes(x = month, y = mean_value, group = 1)) +
   geom_line() +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, color = "blue") +
@@ -547,6 +567,10 @@ ggplot(mo_nocare_mean, aes(x = month, y = mean_value, group = 1)) +
   #   labels = month_names$month_name)
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         plot.title = element_text(size = 12))
+
+figure6 
+
+ggsave("figure6.png", figure6, width = 6, height = 4, dpi = 300)
 ```
 
 ```{r, echo=FALSE}

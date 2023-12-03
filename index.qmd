@@ -6,7 +6,7 @@ Welcome to Shirley's PM566 Final Project Website.
 
 This project is a summary of analysis and figures related to a public health topic of Shirley's interest: mental health care and access.
 
-Please go to this link to view the full report: download_link.html.
+Please go to this link to view the full report: [Link to PDF File](Final Project.pdf)
 
 ```{r, echo=FALSE}
 # Define the file path
@@ -19,7 +19,7 @@ html_content <- sprintf('<a href="%s" download>Download PDF</a>', file_path)
 writeLines(html_content, "download_link.html")
 ```
 
-# Trends in Lack of Mental Health Care Since the COVID-19 Pandemic 
+# Trends in Lack of Mental Health Care Since the COVID-19 Pandemic
 
 ## Brief Description
 
@@ -37,46 +37,50 @@ Please access more information through this link: https://www.cdc.gov/nchs/covid
 
 The dataset can also accessed through instructions described in the README.file, as well as via this link: https://data.cdc.gov/NCHS/Mental-Health-Care-in-the-Last-4-Weeks/yni7-er2q
 
-## Visualizations  
+## Visualizations
+
+\![Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age](![Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age])
 
 ```{r, echo=FALSE}
-library(knitr)
-library(ggplot2)
+# library(knitr)
+# library(ggplot2)
 ```
 
 ```{r, echo=FALSE}
-ggplot(age_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
-  geom_bar(stat = "identity") +
-  labs(
-    title = "Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age", 
-    x = "Age Group", 
-    y = "Average Percent"
-    ) +
-  theme_minimal() + 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.title = element_text(size = 12))
+# ggplot(age_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
+#   geom_bar(stat = "identity") +
+#   labs(
+#     title = "Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age", 
+#     x = "Age Group", 
+#     y = "Average Percent"
+#     ) +
+#   theme_minimal() + 
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1),
+#         plot.title = element_text(size = 12))
 ```
 
 Figure 1. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by age subgroup. A higher average percent indicates a greater lack of access (i.e., less care); a lower average percent indicates a lower lack of access (i.e., more care).
 
 The ages 18-29 years old had the highest rates of lack of mental health care at 19.85%, and those 70-79 years old with the lowest rates at 3.26%.
 
+\![Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education](/Users/shirleyli/Desktop/Med_School/USC/MPH/Fall_2023/PM566_DataScience/Final/FinalProj/figure3.png)
+
 ```{r, echo=FALSE}
-#reorder Subgroups on graph
-custom_order <- c("Less than a high school diploma", "High school diploma or GED", "Some college/Associate's degree", "Bachelor's degree or higher")
-
-edu_subgrp_nocare_mean$Subgroup <- factor(edu_subgrp_nocare_mean$Subgroup, levels = custom_order)
-
-ggplot(edu_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
-  geom_bar(stat = "identity") +
-  labs(
-    title = "Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level", 
-    x = "Education Level", 
-    y = "Average Percent"
-    ) +
-  theme_minimal() + 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.title = element_text(size = 12))
+# #reorder Subgroups on graph
+# custom_order <- c("Less than a high school diploma", "High school diploma or GED", "Some college/Associate's degree", "Bachelor's degree or higher")
+# 
+# edu_subgrp_nocare_mean$Subgroup <- factor(edu_subgrp_nocare_mean$Subgroup, levels = custom_order)
+# 
+# ggplot(edu_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
+#   geom_bar(stat = "identity") +
+#   labs(
+#     title = "Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level", 
+#     x = "Education Level", 
+#     y = "Average Percent"
+#     ) +
+#   theme_minimal() + 
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1),
+#         plot.title = element_text(size = 12))
 ```
 
 Figure 3. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by education subgroup.
@@ -84,17 +88,17 @@ Figure 3. describes the average percent of individuals lacking mental health cou
 There is no distinct trend observed in education subgroups with regards to lack of mental health care, with fluctuations across education level. Those with High school diploma or GED were at the lowest average percent at 8.75% and Some college/Associate's at the highest at 13.47%.
 
 ```{r, echo=FALSE}
-ggplot(yr_nocare_mean, aes(x = year, y = mean_value)) +
-  geom_line() +
-  geom_point() +
-  labs(
-    title = "Figure 5. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Year from 2020 to 2022",
-    x = "Year",
-    y = "Average Percent"
-  ) +
-  theme_minimal() + 
-  theme(plot.title = element_text(size = 12)) + 
-  scale_x_continuous(breaks = unique(yr_nocare_mean$year), labels = unique(yr_nocare_mean$year))
+# ggplot(yr_nocare_mean, aes(x = year, y = mean_value)) +
+#   geom_line() +
+#   geom_point() +
+#   labs(
+#     title = "Figure 5. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Year from 2020 to 2022",
+#     x = "Year",
+#     y = "Average Percent"
+#   ) +
+#   theme_minimal() + 
+#   theme(plot.title = element_text(size = 12)) + 
+#   scale_x_continuous(breaks = unique(yr_nocare_mean$year), labels = unique(yr_nocare_mean$year))
 ```
 
 Figure 5. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by year.
@@ -102,24 +106,24 @@ Figure 5. describes the average percent of individuals lacking mental health cou
 In 2020, an average of 10.54% lacked mental health care, with an increase to 11.27% in 2021, and at 12.20% in 2022.
 
 ```{r, echo=FALSE}
-# month_names <- data.frame(month = 1:12, month_name = month.name)
-mo_nocare_mean$month <- factor(mo_nocare_mean$month, levels = 1:12, labels = month.name)
-
-ggplot(mo_nocare_mean, aes(x = month, y = mean_value, group = 1)) +
-  geom_line() +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, color = "blue") +
-  labs(
-    title = "Figure 6. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Month from 2020 to 2022",
-    x = "Months",
-    y = "Mean Value"
-  ) +
-  theme_minimal() + 
-  # scale_x_discrete(
-  #   breaks = month_names$month,
-  #   labels = month_names$month_name)
-  theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.title = element_text(size = 12))
+# # month_names <- data.frame(month = 1:12, month_name = month.name)
+# mo_nocare_mean$month <- factor(mo_nocare_mean$month, levels = 1:12, labels = month.name)
+# 
+# ggplot(mo_nocare_mean, aes(x = month, y = mean_value, group = 1)) +
+#   geom_line() +
+#   geom_point() +
+#   geom_smooth(method = "lm", se = FALSE, color = "blue") +
+#   labs(
+#     title = "Figure 6. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Month from 2020 to 2022",
+#     x = "Months",
+#     y = "Mean Value"
+#   ) +
+#   theme_minimal() + 
+#   # scale_x_discrete(
+#   #   breaks = month_names$month,
+#   #   labels = month_names$month_name)
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1),
+#         plot.title = element_text(size = 12))
 ```
 
 Figure 6. describes the average percent of individuals lacking mental health counseling or therapy in the past 4 weeks by month.
