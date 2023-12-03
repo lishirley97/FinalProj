@@ -6,7 +6,18 @@ Welcome to Shirley's PM566 Final Project Website.
 
 This project is a summary of analysis and figures related to a public health topic of Shirley's interest: mental health care and access.
 
-Please go to this link to view the full report: \_\_\_.pdf
+Please go to this link to view the full report: download_link.html.
+
+```{r, echo=FALSE}
+# Define the file path
+file_path <- "/Users/shirleyli/Desktop/Med_School/USC/MPH/Fall_2023/PM566_DataScience/Final/Final Project.pdf"
+
+# HTML content to create a download link
+html_content <- sprintf('<a href="%s" download>Download PDF</a>', file_path)
+
+# Write the HTML content to a file
+writeLines(html_content, "download_link.html")
+```
 
 # Trends in Lack of Mental Health Care Since the COVID-19 Pandemic 
 
@@ -24,11 +35,14 @@ This data is acquired from the CDC (Centers for Disease Control and Prevention) 
 
 Please access more information through this link: https://www.cdc.gov/nchs/covid19/pulse/mental-health-care.htm
 
-The dataset can also accessed through instructions described:
-
-1.  *Have a `data` folder with either the dataset or instructions about how to acquire it. You should provide the instructions in a `README.md` file within that folder.*
+The dataset can also accessed through instructions described in the README.file, as well as via this link: https://data.cdc.gov/NCHS/Mental-Health-Care-in-the-Last-4-Weeks/yni7-er2q
 
 ## Visualizations  
+
+```{r, echo=FALSE}
+library(knitr)
+library(ggplot2)
+```
 
 ```{r, echo=FALSE}
 ggplot(age_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +

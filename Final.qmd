@@ -1,0 +1,598 @@
+---
+title: "Final Project"
+format: html
+editor: visual
+author: Shirley Li
+---
+
+# Trends in Lack of Mental Health Care Since the COVID-19 Pandemic
+
+## Introduction
+
+### Research Question
+
+Is there a trend in individuals in the United States that need counseling or therapy for mental health disorders but did not receive relevant care? Is there a difference between different demographics (age, education status) and/or between different years (2022, 2021, 2020) and months within the year?
+
+### Background
+
+Mental health is becoming an increasing concern since the 2019 coronavirus pandemic, with heightened stress, fear, and loneliness, along with elevated rates of "anxiety, anger, confusion, and posttraumatic symptoms" (Khan et al., 2022; Pakpour and Griffiths, 2020; Christoffersen et al., 2023). Though not discounting community and individual resilience in the face of these difficulties, overall the pandemic appears to have negative impacts on psychological health across the board (Mills et al., 2022). Many contributing factors have been identified in literature, including social distancing, social isolation, quarantine, and misinformation (Khan et al., 2022; Ahorsu et al., 2020; Sakib et al., 2020). In light of this, variation in experiences across different groups may be important to further examine to better understand the intricacies within these cohorts. More specifically, by identifying cohorts that may not be receiving care needed, barriers to access and resources may be more clearly outlined and show insight into the development of potentially more effective targeted therapies and care options to promote improved health of all populations.
+
+Different age groups may be understood to have had variety of experience in the context of policies and regulations -- for instance, college-age adults experienced closure of university campuses, along with lack of in-person events and ceremonies (e.g. orientations and graduations). On the other hand, many working adults had to transition to remote working environments along with parents of young children struggling to balance childcare at home without in-person schools, while essential workers were subject to high-stress environments and lack of resources during this time. Senior isolation was a rising issue, along with lack of health care and access for chronic diseases. While the resulting psychological pressures of these experiences may not necessarily be specific to any one age group, it may play a role in possible differences in rates of mental health disorders and treatment since then. Additionally, with misinformation being rampant and a large factor for many in their decision-making process during the pandemic, education status may be a significant component influencing prevalence of mental health disorders and treatment access during this time.
+
+With the evolution of the pandemic since 2019, along with administration of vaccinations, political transitions and economic rises/falls, and almost normalization of the pandemic-induced experience, it is also worth examining any potential trends in mental health disorders and treatments over time.
+
+### Data
+
+This data is acquired from the CDC (Centers for Disease Control and Prevention) Household Pulse Surveys, an experimental data system created by partnership between the National Center for Health Statistics (NCHC) and the U.S. Census Bureau along with other federal agencies. The intention was to "rapidly respond and provide relevant information about the impact of the coronavirus pandemic in the U.S. Data collection" beginning April 23, 2020. Specifically, this dataset is called "Mental Health Care in the Last 4 Weeks" where each four week period was a collection time point. The surveys were disseminated online, via email and text message with randomized selection of participants contacted to respond for each linked household. Sample sizes for each measured time period of 4 weeks range from 50,000 to 93,000, with weights response rates from 5.80% to 10.30%. (See https://www.cdc.gov/nchs/covid19/pulse/mental-health-care.htm for more information.)
+
+## Methods
+
+### Data Wrangling
+
+In the original dataset, there are a total of 15 columns and 10404 rows. The rows are divided into four uniquely labelled sections with respect to Indicators, with 2601 records per section.
+
+See Table 1a. for more details regarding the columns. There are a number of missing measures noted for the column of interest "Value". This is due to the way the data was collected: there are a number of time phases during which the data is recorded, with a "break week" in between every 4th week (labelled as "Phase -1" for that column). As such, when examining closer, this results in an offset in time measurements seen (i.e., measured times are not exactly every 4 weeks or necessarily starting in the first week of each month; rather it looks more similar to a pattern of every 5 weeks) which may have some influence on the differences in total measures per year and month.
+
+See Table 1b. for more details regarding the rows. See Table 1c. through 1e. for more details regarding methods in identification of relevant rows and columns.
+
+For the purpose of this project and research question, I will be focusing on select columns. See Table 2. for more details.
+
+```{r, echo=FALSE}
+#Read data 
+library(readr)
+
+data <- read_csv("/Users/shirleyli/Desktop/Med_School/USC/MPH/Fall_2023/PM566_DataScience/Final/FinalProj/Data/Mental_Health_Care_in_the_Last_4_Weeks.csv")
+
+# nrow(data)
+# ncol(data)
+```
+
+```{r, echo=FALSE}
+library(knitr)
+
+column_names_df <- data.frame(Column = names(data))
+column_counts <- sapply(data, function(x) sum(!is.na(x)))
+column_names_df$Counts <- column_counts
+kable(column_names_df, "html", caption = "Table 1a. List of Columns in the Dataset and Counts")
+```
+
+To determine the columns relevant to my research question as shown in Table 2., I first determined how many potential indicators (i.e. mental health treatment), as well as groups and subgroups, were available.
+
+There are 4 different indicators.
+
+```{r, echo=FALSE}
+library(dplyr) 
+
+row_counts <- data %>%
+  group_by(Indicator) %>%
+  summarise(count = n())
+
+# Create a data frame with row names and counts
+row_counts_df <- data.frame(Row = unique(data$Indicator), Counts = row_counts$count)
+
+# Display the table with counts using kable
+kable(row_counts_df, format = "html", caption = "Table 1b. List of Unique Indicators and Counts")
+```
+
+There are 10 different groups.
+
+```{r, echo=FALSE}
+unique_grp <- unique(data$Group)
+
+unique_grp_df <- data.frame(Group = unique_grp)
+
+# Display the table with counts using kable
+kable(unique_grp_df, format = "html", caption = "Table 1c. List of Unique Groups")
+```
+
+For the age group, there are 7 subgroups. For the education group, there are 4 subgroups.
+
+```{r, echo=FALSE}
+subgrp_age <- data %>%
+  filter(Group %in% c("By Age")) %>%
+  summarize("Age Subgroups" = unique(Subgroup))
+
+kable(subgrp_age, format = "html", caption = "Table 1d. List of Age Subgroups")
+```
+
+```{r, echo=FALSE}
+subgrp_edu <- data %>%
+  filter(Group %in% c("By Education")) %>%
+  summarize("Education Subgroups" = unique(Subgroup)) 
+
+kable(subgrp_edu, format = "html", caption = "Table 1e. List of Education Subgroups")
+```
+
+```{r, echo=FALSE}
+#What are the subgroups in each group of interest?
+# data %>%
+#   filter(Group %in% c("By Age", "By Education")) %>%
+#   group_by(Group) %>%
+#   summarize(Subgroup_unique = unique(Subgroup))
+```
+
+This dataset contains phase and time periods, but these measurements are not categorized by month or year. For the purpose of my time periods of interest, I have created a year and month category using the time periods provided in the dataset as well.
+
+```{r, echo=FALSE}
+#Create new variable "year"
+data$`Time Period Start Date` <- as.Date(data$`Time Period Start Date`, format="%m/%d/%Y")
+data$year <- as.integer(format(as.Date(data$`Time Period Start Date`), "%Y"))
+```
+
+```{r, echo=FALSE}
+#Create new variable "month" 
+data$`Time Period Start Date` <- as.Date(data$`Time Period Start Date`, format="%m/%d/%Y")
+data$month <- as.integer(format(as.Date(data$`Time Period Start Date`), "%m"))
+```
+
+```{r, echo=FALSE}
+my_data <- data.frame(
+  Name = c("Indicator", "Group 1", "Group 2", "Group 1 Subgroups", "Group 2 Subgroups", "Time", "Value"),
+  Details = c("Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks", "Age", "Education", "7 age subgroups", "4 education subgroups", "Year, Month", "Percent")
+)
+kable(my_data, caption = "Table 2. List of Relevant Columns Examined")
+```
+
+### Exploratory Data Analysis (EDA)
+
+To review, the EDA Checklist:
+
+1.  Formulate a question - See above.
+
+2.  Read in the data - See above.
+
+3.  Check the dimensions and headers and footers of the data - See above.
+
+4.  Check the variable types in the data - See above.
+
+5.  Take a closer look at some/all of the variables - See **Exploratory Data Analysis** below.
+
+6.  Validate with an external source - See **Introduction** above, **Exploratory Data Analysis** below.
+
+7.  Conduct some summary statistics to answer the initial question - See **Exploratory Data Analysis, Results/Data Visualization** below.
+
+8.  Make exploratory graphs - see **Results/Data Visualization** below.
+
+The next sections look at the Age and Education groups more closely.
+
+```{r, echo=FALSE}
+data_grp_filter <- data %>%
+  filter(Group %in% c("By Age", "By Education"))
+# table(data_grp_filter$Group)
+```
+
+#### Age
+
+```{r, echo=FALSE}
+age_subgrp <- subset(data, Group == "By Age")
+table(age_subgrp$Subgroup)
+```
+
+It is interesting how are all the counts are so perfect in each subgroup. However, upon consideration of the data, each time period of measurement has one record of each of the subgroups, and is not divided into data points for each individual that may have responded to the survey for each of the indicators. In a sense, the data provided in the dataset is not the raw data from the survey, but has already gone through some processing. To note, similar findings were observed for Education subgroups. For the purpose of my question, I am more interested in the values measured within each of these subgroups.
+
+To start, I checked for any NA's in my values for the Age subgroups.
+
+```{r, echo=FALSE}
+#Check NA's
+any(is.na(age_subgrp$Value))
+```
+
+```{r, echo=FALSE}
+summary(age_subgrp$Value)
+```
+
+Looking at the dataset, it looks like the number of missing values are present for all Age subgroups. However, it can be noted that except for the Age subgroup of "80 years and above", all are missing values in the time period labelled as "Phase -1". To review, "Phase -1" indicates break times between every measured 4 week periods. For the purposes of the following data analysis, it is reasonable to remove these missing values in all "Phase -1" time points as no measures were actively performed during these times. The code used to do so is shown below. The Age subgroup of "80 years and above" however does contain other time Phases that appear to be truly missing values. In this case, replacing them with the relevant Age subgroup mean is reasonable. The code used to do this is also shown below. Some possible explanations include considerations that population may not have been as well accounted for in this dataset or there were no participants in this age range during select phases of measurement or recruitment. The specific details are difficult to identify as no explanation is conveyed by the CDC or NCHS in reviewed materials, though it is stated that participants were randomly selected for invitations to respond to survey materials.
+
+While the methods used identifies all missing values within the Age subgroups of interest (including Indicators and other columns that may not be relevant to the current research question), it is worth examining these missing values in their entirety, as this lends to greater understanding and direction for future study.
+
+```{r, echo=FALSE}
+unique_subgrp_age <- unique(age_subgrp$Subgroup)
+
+identify_missing_values <- function(subgroup_data, subgroup_name) {
+  missing_value_rows <- which(is.na(subgroup_data$Value))
+  
+  if (length(missing_value_rows) > 0) {
+    print(paste("Missing values found in subgroup:", subgroup_name))
+    print(subgroup_data[missing_value_rows, ])
+  }
+}
+
+# Loop through each subgroup
+for (subgroup in unique_subgrp_age) {
+  subgroup_data <- subset(age_subgrp, Subgroup == subgroup)
+  identify_missing_values(subgroup_data, subgroup)
+}
+```
+
+```{r}
+#Remove rows with Phase -1
+data_filter <- data %>%
+  filter(Phase != "-1")
+```
+
+```{r, echo=FALSE}
+#rehash age_subgrp
+age_subgrp <- subset(data_filter, Group == "By Age")
+```
+
+```{r, echo=FALSE}
+age_subgrp_80 <- subset(age_subgrp, Subgroup == "80 years and above")
+# 
+# # Identify rows with missing values in the 'Value' column within the subgroup
+# missing_rows <- which(is.na(age_subgrp_80$Value))
+# 
+# # Display the rows with missing values
+# rows_missing_values <- age_subgrp_80[missing_rows, ]
+# print(rows_missing_values)
+```
+
+```{r}
+#Replace missing values in Age subgroup "80 years and above"
+age_subgrp_80_mean <- mean(age_subgrp_80$Value, na.rm = TRUE)
+
+age_subgrp <- age_subgrp %>%
+  mutate(Value = ifelse(Subgroup == "80 years and above" & is.na(Value), age_subgrp_80_mean, Value))
+```
+
+The mean value within each of the 7 Age subgroups was reviewed.
+
+```{r, echo=FALSE}
+#More streamlined method 
+age_subgrp_nocare <- age_subgrp %>%
+  filter(Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+
+age_subgrp_nocare_mean <- age_subgrp_nocare %>%
+  group_by(Subgroup) %>%
+  summarize(mean_value = mean(Value, na.rm = TRUE))
+print(age_subgrp_nocare_mean)
+```
+
+A summary of the Age subgroups is shown below. Note there are no longer any missing values.
+
+```{r, echo=FALSE}
+summary(age_subgrp_nocare$Value)
+```
+
+#### Education
+
+With regards to Education, a similar methodology was used as for Age. Similar to Age subgroups, the number of measured units was identical across all Education subgroups. Again, I checked for missing values, which were all again identified to be within the "Phase -1" time periods. For the purposes of the following data analysis, it is reasonable to again remove these missing values in all "Phase -1" time points. The code used to do this is identical to that described above with the Age subgroups.
+
+```{r, echo=FALSE}
+edu_subgrp <- subset(data, Group == "By Education")
+table(edu_subgrp$Subgroup)
+```
+
+To start, I checked for any NA's in my values for the Education subgroups.
+
+```{r, echo=FALSE}
+#Check NA's
+any(is.na(edu_subgrp$Value))
+```
+
+```{r, echo=FALSE}
+summary(edu_subgrp$Value)
+```
+
+```{r, echo=FALSE}
+unique_subgrp_edu <- unique(edu_subgrp$Subgroup)
+
+identify_missing_values <- function(subgroup_data, subgroup_name) {
+  missing_value_rows <- which(is.na(subgroup_data$Value))
+  
+  if (length(missing_value_rows) > 0) {
+    print(paste("Missing values found in subgroup:", subgroup_name))
+    print(subgroup_data[missing_value_rows, ])
+  }
+}
+
+# Loop through each subgroup
+for (subgroup in unique_subgrp_edu) {
+  subgroup_data <- subset(edu_subgrp, Subgroup == subgroup)
+  identify_missing_values(subgroup_data, subgroup)
+}
+```
+
+```{r, echo=FALSE}
+data_filter <- data %>%
+  filter(Phase != "-1")
+
+edu_subgrp <- subset(data_filter, Group == "By Education")
+```
+
+The mean value within each of the 4 Education subgroups was reviewed.
+
+```{r, echo=FALSE}
+#Calculate mean for each edu subgroup + no care
+edu_subgrp_nocare <- edu_subgrp %>%
+  filter(Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+
+edu_subgrp_nocare_mean <- edu_subgrp_nocare %>%
+  group_by(Subgroup) %>%
+  summarize(mean_value = mean(Value, na.rm = TRUE))
+print(edu_subgrp_nocare_mean)
+```
+
+A summary of the Education subgroups is shown below. Note there are no longer any missing values.
+
+```{r, echo=FALSE}
+summary(edu_subgrp_nocare$Value)
+```
+
+#### Year
+
+To review the year time points (2020, 2021, 2022), the number of measurements was also examined. Unlike that of Age and Education subgroups, the years had different number of measurements, as there were different time points in which the data began collection in the respective years, in addition to the offset measurements every 4 weeks with a break week in between (which has been filtered out due to the missing values during these breaks).
+
+```{r, echo=FALSE}
+data_filter <- data %>%
+  filter(Phase != "Phase -1")
+
+table(data_filter$year)
+```
+
+```{r, echo=FALSE}
+yr_subgrp <- subset(data_filter, Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+```
+
+To check mean values for each year, I used a similar method to that used for Age and Education.
+
+```{r, echo=FALSE}
+#Calculate mean for each year + no care
+yr_nocare <- data_filter %>%
+  filter(Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+
+yr_nocare_mean <- yr_nocare %>%
+  group_by(year) %>%
+  summarize(mean_value = mean(Value, na.rm = TRUE))
+print(yr_nocare_mean)
+```
+
+#### Month
+
+To review the month time points, the number of measurements was also examined. Unlike that of Age and Education subgroups, the months had slightly different number of measurements, as there were different time points in which the data began collection in the respective months, in part due to the offset measurements every 4 weeks with a break week in between (which has been filtered out due to the missing values during these breaks).
+
+```{r, echo=FALSE}
+table(data_filter$month)
+```
+
+```{r, echo=FALSE}
+mo_subgrp <- subset(data_filter, Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+```
+
+To check mean values for each month, I used a similar method to that used above.
+
+```{r, echo=FALSE}
+#Calculate mean for each month + no care
+mo_nocare <- data_filter %>%
+  filter(Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+
+mo_nocare_mean <- mo_nocare %>%
+  group_by(month) %>%
+  summarize(mean_value = mean(Value, na.rm = TRUE))
+print(mo_nocare_mean)
+```
+
+## Results/Data Visualization
+
+### Age
+
+The general trend in age observed is that older age groups indicated fewer lacks in mental health care compared to younger age groups (See Figure 1.). The overall mean percent across all age groups was 10.05%. The ages 18-29 years old had the highest rates of lack of mental health care at 19.85%, and those 70-79 years old with the lowest rates at 3.26%. The one exception to the general decreasing trend with increasing age was for those 80 years and above, at 4.87%.
+
+In term of temporal trends, it can be seen that lack of mental health care has generally increased from 2020 to 2022 across age groups (See Figure 2.). While each group continued to stay consistent with regards to greatest and least lack of mental health care (i.e. the 18-29 year old group stayed with the higher level of lack of mental health care in each year, the 70-79 year old group stayed with the lowest level), it can be observed that most groups have increasing percentage rate from 2020, through 2021, and into 2022. Some notable exceptions to this is again the 80 years and above cohort, which is observed to have a slight dip in 2021, though they continued on a similar upward trend in 2022. The 70-79 year old cohort also appears to have a relatively stable trend from 2020 to 2022, setting it apart from the other aged cohorts. Another point to note is that while all other age groups have a general increase in slope from 2021 to 2022, the 18-29 year old cohort did have a flattening slope during this time.
+
+```{r, echo=FALSE}
+library(ggplot2)
+
+ggplot(age_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age", 
+    x = "Age Group", 
+    y = "Average Percent"
+    ) +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        plot.title = element_text(size = 12))
+```
+
+```{r, echo=FALSE}
+# age_subgrp_nocare <- age_subgrp %>%
+#   filter(Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+# 
+# age_subgrp_nocare_mean <- age_subgrp_nocare %>%
+#   group_by(Subgroup) %>%
+#   summarize(mean_value = mean(Value, na.rm = TRUE))
+
+knitr::kable(age_subgrp_nocare_mean, 
+             caption = "Table 3. Summary of Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age Group", 
+             format = "html", 
+             col.names = c("Age Group", "Average Percent"))
+```
+
+```{r, echo=FALSE}
+#Age + Year 
+age_subgrp_nocare_mean_yr <- age_subgrp_nocare %>%
+  group_by(year, Subgroup) %>%
+  summarize(mean_value = mean(Value, na.rm = TRUE), .groups = "drop")
+
+ggplot(age_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color = Subgroup)) +
+  geom_line() +
+  labs(
+    title = "Figure 2. Percent of Individuals Lacking Mental Health Counseling or Therapy by Age from 2020 to 2022",
+    x = "Year",
+    y = "Percent"
+  ) +
+  theme_minimal() + 
+  theme(plot.title = element_text(size = 12)) + 
+  scale_x_continuous(breaks = unique(age_subgrp_nocare_mean_yr$year), labels = unique(age_subgrp_nocare_mean_yr$year))
+```
+
+### Education
+
+There is no distinct trend observed in education subgroups with regards to lack of mental health care, with fluctuations across education level (See Figure 3.). The overall mean percent across all education groups was 10.8%. Those with Less than a high school diploma had a 10.55% lack of mental health care, High school diploma or GED at the lowest value at 8.75%, Some college/Associate's at the highest value at 13.47%, and Bachelor's degree or higher at 10.61%.
+
+In term of temporal trends, it can be seen that lack of mental health care has generally increased from 2020 to 2022 across education levels (See Figure 4.). While to order generally appeared to stay consistent in order through 2020 to 2021, in 2022 the Less than high school diploma cohort exceeded the Bachelor's degree of higher cohort in percent of lack of mental health care. It is of potential interest in that the slope for those with High school diploma or GED decreased from 2021 to 2022, while the slope of other education level cohorts did have a consistent increase from 2020 to 2022.
+
+```{r, echo=FALSE}
+#reorder Subgroups on graph
+custom_order <- c("Less than a high school diploma", "High school diploma or GED", "Some college/Associate's degree", "Bachelor's degree or higher")
+
+edu_subgrp_nocare_mean$Subgroup <- factor(edu_subgrp_nocare_mean$Subgroup, levels = custom_order)
+
+ggplot(edu_subgrp_nocare_mean, aes(x = Subgroup, y = mean_value, fill = Subgroup)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Figure 3. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level", 
+    x = "Education Level", 
+    y = "Average Percent"
+    ) +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        plot.title = element_text(size = 12))
+```
+
+```{r, echo=FALSE}
+# edu_subgrp_nocare <- edu_subgrp %>%
+#   filter(Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+# 
+# edu_subgrp_nocare_mean <- edu_subgrp_nocare %>%
+#   group_by(Subgroup) %>%
+#   summarize(mean_value = mean(Value, na.rm = TRUE))
+
+# Rearrange rows in the data frame based on the custom order
+edu_subgrp_nocare_mean_reordered <- edu_subgrp_nocare_mean[match(custom_order, edu_subgrp_nocare_mean$Subgroup), ]
+
+# Display the table with adjusted row order using kable
+kable(edu_subgrp_nocare_mean_reordered, 
+      caption = "Table 4. Summary of Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level", 
+      format = "html", 
+      col.names = c("Education Level", "Average Percent"))
+```
+
+```{r, echo=FALSE}
+#Edu by Year
+edu_subgrp_nocare_mean_yr <- edu_subgrp_nocare %>%
+  group_by(year, Subgroup) %>%
+  summarize(mean_value = mean(Value, na.rm = TRUE), .groups = "drop")
+
+#reorder Subgroups on graph
+custom_order <- c("Less than a high school diploma", "High school diploma or GED", "Some college/Associate's degree", "Bachelor's degree or higher")
+
+edu_subgrp_nocare_mean_yr$Subgroup <- factor(edu_subgrp_nocare_mean_yr$Subgroup, levels = custom_order)
+
+ggplot(edu_subgrp_nocare_mean_yr, aes(x = year, y = mean_value, color = Subgroup)) +
+  geom_line() +
+  labs(
+    title = "Figure 4. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Education Level from 2020 to 2022",
+    x = "Year",
+    y = "Percent"
+  ) +
+  theme_minimal() + 
+  theme(plot.title = element_text(size = 12)) + 
+  scale_x_continuous(breaks = unique(edu_subgrp_nocare_mean_yr$year), labels = unique(edu_subgrp_nocare_mean_yr$year))
+```
+
+### Year and Month
+
+The overall year average percents appears consistent with what was observed for both Age and Education subgroups in that there is a positive trend across the years for lack of mental health care (See Figure 5.). In 2020, an average of 10.54% lacked mental health care, with an increase to 11.27% in 2021, and at 12.20% in 2022.
+
+The overall month average percent trend appears to be positive from January to December, though noticeably large fluctuations from month to month are observed (See Figure 6.). May was observed to be the month with the lowest percent lack of mental health care at 9.86%, with December the highest at 12.27%.
+
+```{r, echo=FALSE}
+yr_nocare <- data_filter %>%
+  filter(Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+
+yr_nocare_mean <- yr_nocare %>%
+  group_by(year) %>%
+  summarize(mean_value = mean(Value, na.rm = TRUE))
+# print(yr_nocare_mean)
+```
+
+```{r, echo=FALSE}
+ggplot(yr_nocare_mean, aes(x = year, y = mean_value)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Figure 5. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Year from 2020 to 2022",
+    x = "Year",
+    y = "Average Percent"
+  ) +
+  theme_minimal() + 
+  theme(plot.title = element_text(size = 12)) + 
+  scale_x_continuous(breaks = unique(yr_nocare_mean$year), labels = unique(yr_nocare_mean$year))
+```
+
+```{r, echo=FALSE}
+kable(yr_nocare_mean, 
+      caption = "Summary of Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Year", 
+      format = "html", 
+      col.names = c("Year", "Average Percent"))
+```
+
+```{r, echo=FALSE}
+# month_names <- data.frame(month = 1:12, month_name = month.name)
+mo_nocare_mean$month <- factor(mo_nocare_mean$month, levels = 1:12, labels = month.name)
+
+ggplot(mo_nocare_mean, aes(x = month, y = mean_value, group = 1)) +
+  geom_line() +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(
+    title = "Figure 6. Average Percent of Individuals Lacking Mental Health Counseling or Therapy per Month from 2020 to 2022",
+    x = "Months",
+    y = "Mean Value"
+  ) +
+  theme_minimal() + 
+  # scale_x_discrete(
+  #   breaks = month_names$month,
+  #   labels = month_names$month_name)
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        plot.title = element_text(size = 12))
+```
+
+```{r, echo=FALSE}
+library(lubridate)
+# library(janitor)
+
+mo_nocare <- data_filter %>%
+  filter(Indicator == "Needed Counseling or Therapy But Did Not Get It, Last 4 Weeks")
+
+mo_nocare_mean <- mo_nocare %>%
+  group_by(month) %>%
+  summarize(mean_value = mean(Value, na.rm = TRUE))
+
+# Use lubridate to format month numbers as month names
+mo_nocare_mean <- mo_nocare_mean %>%
+  mutate(month = month(month, label = TRUE, abbr = FALSE))
+
+knitr::kable(mo_nocare_mean, caption = "Summary of Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Month", format = "html", col.names = c("Month", "Average Percent"))
+```
+
+## Conclusions
+
+This data showed that since 2020, lack of mental health care has been on a generally increasing trend across all examined groups (Age, Education level), with mild differences. This is concerning but perhaps not unexpected given potential lag time between the start of the pandemic in 2019, leading to possible increase in incidence of mental health issues, time between symptoms and clinical diagnosis, stigma of mental health illness, and then time to seek and receive care. Certainly, insurance and other systemic health delivery aspects play a role as well. Multiple factors must be considered for the reason behind this increase, and future surveying and research are necessary.
+
+It is notable that the 18-29 year old Age group have consistently the highest rates of lack of mental health care for any age group examined. Possible explanations may include the school experience for most individuals in this cohort, as well as job market uncertainty, especially during the pandemic where mass layoffs occurred and lack of financial security was a common experience. More insight into these shared experiences may be worthwhile research topics, and potential aspects to include and address in care methods.
+
+Examining Education level, those with High school diploma or GED were consistently lowest for lack of mental health care, while Some college/Associate's degree was consistently the highest. It is uncertain why this might be the case, as neither would be categorized as the greatest or lowest level of education in the levels measured in this dataset, so education may be a confounding factor in levels of mental health care access. Another thought may be that both higher and lower levels of education (i.e., Bachelor's degree of higher, Less than a high school diploma) may have both protective and risk factors for mental health illness and/or healthcare access, resulting in a more buffered level of received care in the range of education levels measured. Further research is needed to determine this observation, and consideration of social networks, environmental exposures, and other stressors are warranted.
+
+With regards to the monthly fluctuations, one potential explanation may be related to school year schedules and holidays --- in general, it may be that during the summer holidays (July) and winter holidays (November - January), individuals may traditionally have group and family gatherings which may have been restricted during the pandemic as well as a setting of high-stress, leading to increasing need for mental health care as well as potential unwillingness to seek related care. Typically, March - May is leading up to the end of the school year and start of the summer holidays/season, which may be a mental relief or positive mental expectation for individuals, leading to lower need for mental health care or potential motivation to seek care.
+
+To conclude, this data showed a positive trend in lack of mental health care across groups. Further research is recommended to examine exact causes and influences on this trend.
+
+## References
+
+*Mental health care in the last 4 weeks \| Data \| Centers for Disease Control and Prevention*. (2022, November 28). https://data.cdc.gov/NCHS/Mental-Health-Care-in-the-Last-4-Weeks/yni7-er2q
+
+Centers for Disease Control and Prevention. (2022, July 20). *Mental health care - household pulse survey - covid-19*. Centers for Disease Control and Prevention. https://www.cdc.gov/nchs/covid19/pulse/mental-health-care.htm
+
+Khan, K. S., Mamun, M. A., Griffiths, M. D., & Ullah, I. (2022). The Mental Health Impact of the COVID-19 Pandemic Across Different Cohorts. *International journal of mental health and addiction*, *20*(1), 380--386. https://doi.org/10.1007/s11469-020-00367-0
+
+Christoffersen LA, Helenius D, Schwinn M, Erikstrup C, Hjalgrim H, Nissen J, Banasik K, Nielsen K, Kaspersen KA, Dinh KM, Bruun MT, Ostrowski SR, Sækmose S, Hansen TF, Werge T, Didriksen M, Pedersen OB. Experience of loneliness during the COVID-19 pandemic: a cross-sectional study of 50 968 adult Danes. BMJ Open. 2023 Apr 26;13(4):e064033. doi: 10.1136/bmjopen-2022-064033. PMID: 37185636; PMCID: PMC10151242.
+
+Pakpour AH, Griffiths MD. The fear of COVID-19 and its role in preventive behaviors. Journal of Concurrent Disorders. 2020;2(1):58--63. doi: 10.54127/WCIC8036.
+
+Ahorsu, D. K., Lin, C. Y., Imani, V., Saffari, M., Griffiths, M. D., & Pakpour, A. H. (2020). The fear of COVID-19 scale: Development and initial validation. International Journal of Mental Health and Addiction. 10.1007/s11469-020-00270-8.
+
+Sakib, N., Mamun, M. A., Bhuiyan, A. I., Hossain, S., Al Mamun, F., Hosen, I., et al. (2020). Psychometric validation of the Bangla fear of COVID-19 scale: confirmatory factor analysis and Rasch analysis. International Journal of Mental Health and Addiction. 10.1007/s11469-020-00289-x.
+
+Mills, D. J., Petrovic, J., Mettler, J., Hamza, C. A., & Heath, N. L. (2022). The good, the bad, and the mixed: Experiences during COVID-19 among an online sample of adults. *PloS one*, *17*(6), e0269382. https://doi.org/10.1371/journal.pone.0269382
