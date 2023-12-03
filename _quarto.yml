@@ -10,7 +10,6 @@ website:
         text: Home
       - about.qmd
       - figures.qmd
-      - Proj1.qmd
 
 format:
   html:

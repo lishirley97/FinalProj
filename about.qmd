@@ -1,11 +1,17 @@
 ---
-title: "About"
+title: "Background"
 ---
 
-This is Shirley's PM566 Final Project Website.
+This is Shirley's PM566 Final Project Website. See below for details on the Research Question and Background.
 
-Research Question: Is there a trend in individuals in the United States that need counseling or therapy for mental health disorders but did not receive relevant care? Is there a difference between different demographics (age, education status) and/or between different years (2022, 2021, 2020) and months within the year?
+## Research Question
 
-```{r}
-1 + 1
-```
+Is there a trend in individuals in the United States that need counseling or therapy for mental health disorders but did not receive relevant care? Is there a difference between different demographics (age, education status) and/or between different years (2022, 2021, 2020) and months within the year?
+
+## Background
+
+Mental health is becoming an increasing concern since the 2019 coronavirus pandemic, with heightened stress, fear, and loneliness, along with elevated rates of "anxiety, anger, confusion, and posttraumatic symptoms" (Khan et al., 2022; Pakpour and Griffiths, 2020; Christoffersen et al., 2023). Though not discounting community and individual resilience in the face of these difficulties, overall the pandemic appears to have negative impacts on psychological health across the board (Mills et al., 2022). Many contributing factors have been identified in literature, including social distancing, social isolation, quarantine, and misinformation (Khan et al., 2022; Ahorsu et al., 2020; Sakib et al., 2020). In light of this, variation in experiences across different groups may be important to further examine to better understand the intricacies within these cohorts. More specifically, by identifying cohorts that may not be receiving care needed, barriers to access and resources may be more clearly outlined and show insight into the development of potentially more effective targeted therapies and care options to promote improved health of all populations.
+
+Different age groups may be understood to have had variety of experience in the context of policies and regulations -- for instance, college-age adults experienced closure of university campuses, along with lack of in-person events and ceremonies (e.g. orientations and graduations). On the other hand, many working adults had to transition to remote working environments along with parents of young children struggling to balance childcare at home without in-person schools, while essential workers were subject to high-stress environments and lack of resources during this time. Senior isolation was a rising issue, along with lack of health care and access for chronic diseases. While the resulting psychological pressures of these experiences may not necessarily be specific to any one age group, it may play a role in possible differences in rates of mental health disorders and treatment since then. Additionally, with misinformation being rampant and a large factor for many in their decision-making process during the pandemic, education status may be a significant component influencing prevalence of mental health disorders and treatment access during this time.
+
+With the evolution of the pandemic since 2019, along with administration of vaccinations, political transitions and economic rises/falls, and almost normalization of the pandemic-induced experience, it is also worth examining any potential trends in mental health disorders and treatments over time.

@@ -1,5 +1,0 @@
----
-title: "figures"
----
-
-Relevant tables and figures.

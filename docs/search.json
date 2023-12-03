@@ -2,22 +2,29 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Temp",
+    "title": "Home",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n\n[1] 2"
+    "text": "Welcome to Shirley’s PM566 Final Project Website.\nThis project is a summary of analysis and figures related to a public health topic of Shirley’s interest: mental health care and access.\nPlease go to this link to view the full report: ___\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n\n[1] 2"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "This is Shirley’s PM566 Final Project Website.\nResearch Question: Is there a trend in individuals in the United States that need counseling or therapy for mental health disorders but did not receive relevant care? Is there a difference between different demographics (age, education status) and/or between different years (2022, 2021, 2020) and months within the year?\n\n1 + 1\n\n[1] 2"
   },
   {
     "objectID": "Proj1.html",
     "href": "Proj1.html",
-    "title": "Proj 1",
+    "title": "Proj1",
     "section": "",
     "text": "Here is my project\n\nbarplot(1:5)"
+  },
+  {
+    "objectID": "figures.html",
+    "href": "figures.html",
+    "title": "Tables and Figures",
+    "section": "",
+    "text": "Table 2. List of Relevant Columns Examined\n\n\n\n\n\n\nName\nDetails\n\n\n\n\nIndicator\nNeeded Counseling or Therapy But Did Not Get It, Last 4 Weeks\n\n\nGroup 1\nAge\n\n\nGroup 2\nEducation\n\n\nGroup 1 Subgroups\n7 age subgroups\n\n\nGroup 2 Subgroups\n4 education subgroups\n\n\nTime\nYear, Month\n\n\nValue\nPercent"
   }
 ]
