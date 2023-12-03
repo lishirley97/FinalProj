@@ -10,7 +10,7 @@ Please go to to the "Full Report" tab, or this link, to view the full report: [D
 
 ```{r, echo=FALSE}
 # Define the file path
-file_path <- "/Users/shirleyli/Desktop/Med_School/USC/MPH/Fall_2023/PM566_DataScience/Final/FinalProj/docs/Final Project.pdf"
+file_path <- "file:///Users/shirleyli/Desktop/Med_School/USC/MPH/Fall_2023/PM566_DataScience/Final/FinalProj/docs/Final%20Project.pdf"
 
 # HTML content to create a download link
 html_content <- sprintf('<a href="%s" download>Download PDF</a>', file_path)
