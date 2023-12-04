@@ -1,5 +1,5 @@
 ---
-title: "Tables and Figures"
+title: "Figures"
 ---
 
 <img src="figure1.png" alt="Figure 1. Average Percent of Individuals Lacking Mental Health Counseling or Therapy by Age" width="600" height="400"/>

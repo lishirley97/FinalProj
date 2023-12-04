@@ -6,7 +6,7 @@ Welcome to Shirley's PM566 Final Project Website.
 
 This project is a summary of analysis and figures related to a public health topic of Shirley's interest: mental health care and access.
 
-Please go to to the "Full Report" tab, or this link, to view the full report: [Download PDF](https://github.com/lishirley97/FinalProj/blob/main/Final%20Project.pdf)
+Please go to to the "Full Report" tab, or click the following link to download the full report: [Download PDF](https://github.com/lishirley97/FinalProj/blob/main/Final%20Project.pdf)
 
 ```{r, echo=FALSE}
 # Define the file path
@@ -33,9 +33,9 @@ Is there a trend in individuals in the United States that need counseling or the
 
 This data is acquired from the CDC (Centers for Disease Control and Prevention) Household Pulse Surveys, an experimental data system created by partnership between the National Center for Health Statistics (NCHC) and the U.S. Census Bureau along with other federal agencies. The intention was to "rapidly respond and provide relevant information about the impact of the coronavirus pandemic in the U.S. Data collection" beginning April 23, 2020. Specifically, this dataset is called "Mental Health Care in the Last 4 Weeks" where each four week period was a collection time point.
 
-Please access more information through this link: https://www.cdc.gov/nchs/covid19/pulse/mental-health-care.htm
+Please access more information through this link: <https://www.cdc.gov/nchs/covid19/pulse/mental-health-care.htm>.
 
-The dataset can also accessed through instructions described in the README.file, as well as via this link: https://data.cdc.gov/NCHS/Mental-Health-Care-in-the-Last-4-Weeks/yni7-er2q
+The dataset can also accessed through instructions described in the README.file, as well as via this link: <https://data.cdc.gov/NCHS/Mental-Health-Care-in-the-Last-4-Weeks/yni7-er2q>.
 
 ## Visualizations
 
